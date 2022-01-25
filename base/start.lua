@@ -20,7 +20,7 @@ function jet_json_advanced_patch(path, callback)
     jet_text_patch(path, function(contents)
         local document = rapidjson.Document()
 
-        local ok, err = document:parse(data)
+        local ok, err = document:parse(contents)
         if not ok then
             error(err)
         end
