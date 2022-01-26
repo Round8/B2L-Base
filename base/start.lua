@@ -1,8 +1,19 @@
+local csv = require("mods/base/csv")
+
 -- metadata about the base mod
 if current_mod_path == "mods/base" or current_mod_path == "mods\\base" then
     mod_metadata("name", "Base Mod")
-    mod_metadata("version", "1.1.0")
+    mod_metadata("version", "1.2.0")
     mod_metadata("author", "the B2L team")
+end
+
+-- helper for dealing with csv data
+function jet_csv_patch(path, callback)
+    jet_text_patch(path, function(contents)
+        local parsed = csv.decode(contents)
+        parsed = callback(parsed)
+        return csv.encode(parsed)
+    end)
 end
 
 -- helper for dealing with json data
